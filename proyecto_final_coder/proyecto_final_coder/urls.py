@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.http import HttpResponse
 
 def mi_func(xx):
-    return HttpResponse("<h1>Bienvenidos a mi Proyecto</h1>")
+    return HttpResponse("<h1>Bienvenidos a Next Generation, tienda virtual</h1>")
 
 
 urlpatterns = [
