@@ -19,7 +19,7 @@ def home_view(request):
 
 def list_view(request):
     registros = Registro.objects.all()
-    contexto_dict = {'registros': registros}
+    contexto_dict = {"registros": registros}
     return render(request, "application1/list.html", contexto_dict)
 
 
