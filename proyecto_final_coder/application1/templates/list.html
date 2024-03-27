@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title> Registros </title>
-</head>
-<body>
-    <h1>Registros</h1>
-    <ul>
-    {% for registro in registros %}
-        {% if registro.mail == "multidestino" %}
-            <li>{{ registro }}  --------------------------------- </li>
-        {% else %}
-            <li>{{ registro }} </li>
-        {% endif %}
-    {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %} Listado de Registros {% endblock %}
+
+{% block content %}
+<section>
+    <h2>Registros</h2>
+    <div class="registros-list">
+        {% for registro in registros %}
+            <div class="discussion-item">
+                <p><a href="http://google.com">{{ registro }}</a></p>
+            </div>
+        {% empty %}
+            <p>No hay registros disponibles.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
