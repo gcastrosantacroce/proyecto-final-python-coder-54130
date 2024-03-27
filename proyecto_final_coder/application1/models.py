@@ -10,7 +10,7 @@ from django.db import models
 
 class Registro(models.Model):
     nombre_de_usuario = models.CharField(max_length=50)
-    mail = models.CharField(max_length=50)
+    mail = models.EmailField(max_length=50)
 
     def __str__(self):
         return f"Ha registrado el usuario {self.nombre_de_usuario} con mail {self.mail}"
