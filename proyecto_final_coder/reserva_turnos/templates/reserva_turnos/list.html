@@ -1,0 +1,18 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %} Listado de Turnos {% endblock %}
+
+{% block content %}
+<section>
+    <h2>Turnos</h2>
+    <div class="turnos-list">
+        {% for turno in turnos %}
+            <div class="discussion-item">
+                <p><a href="http://google.com">{{ turno }}</a></p>
+            </div>
+        {% empty %}
+            <p>No hay turnos encontrados para ese usuario.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

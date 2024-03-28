@@ -19,13 +19,14 @@ from django.urls import path, include
 from django.http import HttpResponse
 
 def mi_func(xx):
-    return HttpResponse("<h1>Bienvenidos a Next Generation, tienda virtual</h1>")
+    return HttpResponse("<h1>Bienvenidos a Vanguardia Center, Centro medico especializado</h1>")
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", mi_func),
-    path("application1/", include("application1.urls")), # conecto las URLS de `bookings` con las URLS generales
+    path("application1/", include("application1.urls")), # conecto las URLS de `application1` con las URLS generales
+    path("reserva_turnos/", include("reserva_turnos.urls")) # conecto las URLS de `reserva_turnos` con las URLS generales
 ]
 
 #python manage.py runserver

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} xxxxx {% endblock title %}</title>
+    <title>{% block title %} Registros {% endblock title %}</title>
     <!-- Bootstrap CSS CDN (Bootstrap 4 used as an example) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -21,7 +21,7 @@
                     <a class="nav-link" href="/application1/list">Todos los registros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "application1-list" %}">Buscar</a>
+                    <a class="nav-link" href="{% url "reserva_turnos-home" %}">Turnos</a>
                 </li>
             </ul>
         </div>
