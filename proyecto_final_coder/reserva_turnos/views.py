@@ -5,9 +5,10 @@ from .models import Turnos
 def home_view(request):
     return render(request, "reserva_turnos/home.html")
 
+
 def list_view(request):
     turnos = Turnos.objects.all()
-    contexto_dict = {"turnos": turnos}
+    contexto_dict = {"todos_los_turnos": turnos}
     return render(request, "reserva_turnos/list.html", contexto_dict)
 
 
@@ -17,6 +18,7 @@ def search_view(request, nombre_de_usuario):
     return render(request, "reserva_turnos/list.html", contexto_dict)
 
 
-def create_view(request, nombre_de_usuario, consultorio, profesional):
-    registro_turnos = Turnos.objects.create(nombre_de_usuario=nombre_de_usuario, consultorio=consultorio, profesional=profesional)
-    return HttpResponse(f"Operacion éxitosa. {registro_turnos}")
+def detail_view(request, turno_id):
+    turno = Turnos.objects.get(id=turno_id)
+    contexto_dict = {"turno": turno}
+    return render(request, "reserva_turnos/detail.html", contexto_dict)

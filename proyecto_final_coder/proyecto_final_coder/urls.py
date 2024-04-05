@@ -25,7 +25,6 @@ def mi_func(xx):
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", mi_func),
-    path("application1/", include("application1.urls")), # conecto las URLS de `application1` con las URLS generales
     path("reserva_turnos/", include("reserva_turnos.urls")) # conecto las URLS de `reserva_turnos` con las URLS generales
 ]
 

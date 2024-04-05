@@ -3,16 +3,43 @@
 {% block title %} Listado de Turnos {% endblock %}
 
 {% block content %}
-<section>
-    <h2>Turnos</h2>
-    <div class="turnos-list">
-        {% for turno in turnos %}
-            <div class="discussion-item">
-                <p><a href="http://google.com">{{ turno }}</a></p>
-            </div>
-        {% empty %}
-            <p>No hay turnos encontrados para ese usuario.</p>
-        {% endfor %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="mb-4">Turnos</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre de Usuario</th>
+                    <th scope="col">Profesional</th>
+                    <th scope="col">Consultorio</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora de Inicio</th>
+                    <th scope="col">Hora de Fin</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for turnos in todos_los_turnos %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ turnos.nombre_de_usuario }}</td>
+                    <td>{{ turnos.profesional }}</td>
+                    <td>{{ turnos.consultorio }}</td>
+                    <td>{{ turnos.fecha | date:"Y-m-d" }}</td>
+                    <td>{{ turnos.hora_inicio | date:"H:i" }}</td>
+                    <td>{{ turnos.hora_fin | date:"H:i" }}</td>
+                    <td>
+                        <a href="/reserva_turnos/detail/{{turnos.id}}" class="btn btn-primary btn-sm">Ver</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">No hay turnos disponibles.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </section>
 {% endblock %}

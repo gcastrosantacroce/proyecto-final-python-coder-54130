@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Turnos, Consultorio, Profesional
+
+admin.site.register(Turnos)
+admin.site.register(Consultorio)
+admin.site.register(Profesional)
