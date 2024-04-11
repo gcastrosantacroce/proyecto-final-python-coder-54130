@@ -20,6 +20,7 @@
                 </tr>
             </thead>
             <tbody>
+                {% if todos_los_turnos %}
                 {% for turnos in todos_los_turnos %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
@@ -32,12 +33,13 @@
                     <td>
                         <a href="/reserva_turnos/detail/{{turnos.id}}" class="btn btn-primary btn-sm">Ver</a>
                     </td>
+                    {% endfor %}
                 </tr>
-                {% empty %}
+                {% else %}
                 <tr>
                     <td colspan="7">No hay turnos disponibles.</td>
                 </tr>
-                {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>

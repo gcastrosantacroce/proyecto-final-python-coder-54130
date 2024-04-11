@@ -22,7 +22,13 @@
                     <a class="nav-link" href="/reserva_turnos/list">Todos los Turnos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'reserva_turnos-list' %}">Volver</a>
+                    <a class="nav-link" href="{% url "buscar_turnos" %}">Buscar turno</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "crear_turnos" %}">Crear turno</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "reserva_turnos-home" %}">Volver</a>
                 </li>
             </ul>
         </div>

@@ -1,0 +1,27 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %}Buscar Turnos{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <h2 class="mb-4">Buscar Turnos</h2>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Filtros de búsqueda
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{% url "buscar_turnos" %}">  <!-- Pablo notó esto !! -->
+                            {% csrf_token %}  <!-- CSRF Token added here -->
+                            {{ search_form.as_p }}  <!-- ----------------------------------- Pablo notó esto !! -->
+                            <button type="buscar" class="btn btn-primary">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
