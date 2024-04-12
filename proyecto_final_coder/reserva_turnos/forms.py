@@ -24,6 +24,6 @@ class TurnoCreateForm(forms.ModelForm):
             'disponible': 'Disponible',
             'fecha': 'Fecha del turno',
             'hora_inicio' : 'Horario',
-            'descripcion': 'Descripción',
+            'descripcion': 'Detalle',
         }
 

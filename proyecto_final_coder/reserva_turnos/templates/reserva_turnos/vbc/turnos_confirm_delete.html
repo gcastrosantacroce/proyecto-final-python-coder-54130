@@ -1,0 +1,28 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %}Confirmar{% endblock %}
+
+{% block content %}
+
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <p>Estas seguro que quieres eliminar el turno con el profesional "{{ object.profesional }}"?</p>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-primary" value="Confirm Delete">
+                            <a href="{% url 'vbc_turnos_list' %}">Cancel</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

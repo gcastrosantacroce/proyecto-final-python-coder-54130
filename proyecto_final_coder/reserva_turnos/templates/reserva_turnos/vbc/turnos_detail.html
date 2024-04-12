@@ -1,0 +1,38 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %}Detalle del turno{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-4">Turnos</h2>
+            <a href="{% url 'vbc_turnos_list' %}" class="btn btn-primary">Volver</a>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Detalle del turno
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ turnos.nombre_de_usuario }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Consultorio: {{ turnos.consultorio }}</h6>
+                        <p class="card-text">Fecha: {{ turnos.fecha | date:"d/m/Y" }}</p>
+                        <p class="card-text">Profesional: {{ turnos.profesional }}</p>
+                        <p class="card-text">Especialidad: {{ profesional.especialidad }}</p>
+                        <p class="card-text">Hora de inicio: {{ turnos.hora_inicio | date:"H:i" }}</p>
+                        <p class="card-text">Hora de fin: {{ turnos.hora_fin | date:"H:i" }}</p>
+                        <p class="card-text">Detalle: {{ turnos.descripcion }}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="{% url 'vbc_turnos_update' turnos.id %}" class="btn btn-primary">Editar Reserva</a>
+                        <a href="{% url 'vbc_turnos_delete' turnos.id %}" class="btn btn-danger">Eliminar Reserva</a>
+                        <a href="{% url 'vbc_turnos_list' %}" class="btn btn-secondary">Volver al listado</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

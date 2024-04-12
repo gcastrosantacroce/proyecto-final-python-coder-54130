@@ -12,21 +12,32 @@
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/reserva_turnos">Home Turnos</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/reserva_turnos/list">Todos los Turnos</a>
+            <ul class="navbar-nav">
+                <!-- Dropdown for Turnos -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkReserva" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Turnos
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkReserva">
+                        <a class="dropdown-item" href="{% url 'reserva_turnos-list' %}">Todos los Turnos</a>
+                        <a class="dropdown-item" href="{% url 'crear_turnos' %}">Crear Turno</a>
+                        <a class="dropdown-item" href="{% url 'buscar_turnos' %}">Buscar Turno por usuario</a>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url "buscar_turnos" %}">Buscar turno</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url "crear_turnos" %}">Crear turno</a>
-                </li>
+                <!-- Dropdown for Turnos (VBC)-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSala" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Turnos (VBC)
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSala">
+                        <a class="dropdown-item" href="{% url 'vbc_turnos_list' %}">Todos los Turnos</a>
+                        <a class="dropdown-item" href="{% url 'vbc_turnos_create' %}">Crear Turno</a>
+                        <a class="dropdown-item" href="{% url 'buscar_turnos' %}">Buscar Turno por usuario</a>
+                    </div>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "reserva_turnos-home" %}">Volver</a>
                 </li>

@@ -5,6 +5,10 @@
 {% block content %}
 <section class="py-5">
     <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-4">Turnos</h2>
+            <a href="{% url 'reserva_turnos-list' %}" class="btn btn-primary">Volver</a>
+        </div>
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="card shadow-sm">
@@ -21,13 +25,11 @@
                         <p class="card-text">Hora de fin: {{ turno.hora_fin | date:"H:i" }}</p>
                         <p class="card-text">Detalle: {{ turno.descripcion }}</p>
                     </div>
-                    {% comment %}
                     <div class="card-footer text-muted">
-                        <a href="{% url 'edit_reserva' reserva.id %}" class="btn btn-primary">Editar Reserva</a>
-                        <a href="{% url 'delete_reserva' reserva.id %}" class="btn btn-danger">Eliminar Reserva</a>
-                        <a href="{% url 'todas_las_reservas' %}" class="btn btn-secondary">Volver al listado</a>
+                        <a href="{% url 'turno-update' turno.id %}" class="btn btn-primary">Editar Reserva</a>
+                        <a href="{% url 'turno-delete' turno.id %}" class="btn btn-danger">Eliminar Reserva</a>
+                        <a href="{% url 'reserva_turnos-list' %}" class="btn btn-secondary">Volver al listado</a>
                     </div>
-                    {% endcomment %}
                 </div>
             </div>
         </div>

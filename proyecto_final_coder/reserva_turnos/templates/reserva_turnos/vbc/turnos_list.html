@@ -7,7 +7,7 @@
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-4">Turnos</h2>
-            <a href="{% url 'crear_turnos' %}" class="btn btn-success">Crear Turno</a>
+            <a href="{% url 'vbc_turnos_create' %}" class="btn btn-success">Crear Turno</a>
         </div>
         <table class="table">
             <thead>
@@ -23,20 +23,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% if todos_los_turnos %}
-                {% for turnos in todos_los_turnos %}
+                {% if turnos %}
+                {% for turno in turnos %}
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ turnos.nombre_de_usuario }}</td>
-                    <td>{{ turnos.profesional }}</td>
-                    <td>{{ turnos.consultorio }}</td>
-                    <td>{{ turnos.fecha | date:"Y-m-d" }}</td>
-                    <td>{{ turnos.hora_inicio | date:"H:i" }}</td>
-                    <td>{{ turnos.hora_fin | date:"H:i" }}</td>
+                    <td>{{ turno.nombre_de_usuario }}</td>
+                    <td>{{ turno.profesional }}</td>
+                    <td>{{ turno.consultorio }}</td>
+                    <td>{{ turno.fecha | date:"Y-m-d" }}</td>
+                    <td>{{ turno.hora_inicio | date:"H:i" }}</td>
+                    <td>{{ turno.hora_fin | date:"H:i" }}</td>
                     <td>
-                        <a href="{% url 'turno-detail' turnos.id %}" class="btn btn-primary btn-sm">Ver</a>
-                        <a href="{% url 'turno-update' turnos.id %}" class="btn btn-success btn-sm">Editar</a>
-                        <a href="{% url 'turno-delete' turnos.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        <a href="{% url 'vbc_turnos_detail' turno.id %}" class="btn btn-primary btn-sm">Ver</a>
+                        <a href="{% url 'vbc_turnos_update' turno.id %}" class="btn btn-success btn-sm">Editar</a>
+                        <a href="{% url 'vbc_turnos_delete' turno.id %}" class="btn btn-danger btn-sm">Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}

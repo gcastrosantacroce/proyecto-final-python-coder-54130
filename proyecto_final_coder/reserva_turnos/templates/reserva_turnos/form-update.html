@@ -1,26 +1,27 @@
 {% extends 'reserva_turnos/base.html' %}
 
-{% block title %}Buscar Turnos{% endblock %}
+{% block title %}Modificar Turno{% endblock %}
 
 {% block content %}
 <section class="py-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-4">Buscar turno</h2>
+            <h2 class="mb-4">Modificar turno</h2>
             <a href="{% url 'reserva_turnos-list' %}" class="btn btn-primary">Volver</a>
         </div>  
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        Filtros de búsqueda
+                        Datos del turno
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{% url "buscar_turnos" %}">  
+                        <form method="POST" action="{% url 'turno-update' turno.id %}">  <!-- Pablo notó esto !! -->
                             {% csrf_token %}  <!-- CSRF Token added here -->
-                            {{ search_form.as_p }}  
-                            <button type="buscar" class="btn btn-primary">Buscar</button>
+                            {{ update_form.as_p }}  <!-- ----------------------------------- Pablo notó esto !! -->
+                            <button type="buscar" class="btn btn-primary">Actualizar</button>
                         </form>
+                    </div>
                     </div>
                 </div>
             </div>
