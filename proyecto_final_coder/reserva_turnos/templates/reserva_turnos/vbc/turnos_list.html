@@ -28,7 +28,7 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ turno.nombre_de_usuario }}</td>
-                    <td>{{ turno.profesional }}</td>
+                    <td>{{ turno.profesional.nombre }}</td>
                     <td>{{ turno.consultorio }}</td>
                     <td>{{ turno.fecha | date:"Y-m-d" }}</td>
                     <td>{{ turno.hora_inicio | date:"H:i" }}</td>

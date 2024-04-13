@@ -11,13 +11,13 @@
             <div class="col-lg-8 mx-auto">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        <p>Estas seguro que quieres eliminar el turno con el profesional "{{ object.profesional.nombre }}"?</p>
+                        <p>Estas seguro que quieres eliminar el consultorio "{{ object.nombre }}"?</p>
                     </div>
                     <div class="card-body">
                         <form method="post">
                             {% csrf_token %}
                             <input type="submit" class="btn btn-danger" value="Confirm Delete">
-                            <a href="{% url 'vbc_turnos_list' %}">Cancel</a>
+                            <a href="{% url 'vbc_consultorios_list' %}">Cancel</a>
                         </form>
                     </div>
                 </div>

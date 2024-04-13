@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .forms import TurnoSearchForm, TurnoCreateForm
-from .models import Turnos
+from .models import Turnos, Profesional, Consultorio
 
 def home_view(request):
     return render(request, "reserva_turnos/home.html")
@@ -106,6 +106,7 @@ def update_view(request, turno_id):
             return redirect("turno-detail", turno_a_editar.id)
 
 
+
 # Vistas basadas en clases "VBC"
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
@@ -146,3 +147,69 @@ class TurnosDeleteView(DeleteView):
 
 class TurnosSearchView(FormView):
     pass
+
+
+class ProfesionalesListView(ListView):
+    model = Profesional
+    template_name = 'reserva_turnos/vbc/profesional_list.html'
+    context_object_name = 'profesionales'
+
+
+class ProfesionalesDetailView(DetailView):
+    model = Profesional
+    template_name = 'reserva_turnos/vbc/profesional_detail.html'
+    context_object_name = 'profesionales'  
+
+
+class ProfesionalesCreateView(CreateView):
+    model = Profesional
+    template_name = 'reserva_turnos/vbc/profesional_create.html'
+    fields = ['nombre', 'especialidad','descripcion']
+    success_url = reverse_lazy('vbc_profesionales_list')
+
+
+class ProfesionalesUpdateView(UpdateView):
+    model = Profesional
+    template_name = 'reserva_turnos/vbc/profesional_create.html'
+    fields = ['nombre', 'especialidad','descripcion']
+    context_object_name = 'profesionales'
+    success_url = reverse_lazy('vbc_profesionales_list')          
+
+
+class ProfesionalesDeleteView(DeleteView):
+    model = Profesional
+    template_name = 'reserva_turnos/vbc/profesional_confirm_delete.html'
+    success_url = reverse_lazy('vbc_profesionales_list')      
+
+
+class ConsultoriosListView(ListView):
+    model = Consultorio
+    template_name = 'reserva_turnos/vbc/consultorio_list.html'
+    context_object_name = 'consultorios'
+
+
+class ConsultoriosDetailView(DetailView):
+    model = Consultorio
+    template_name = 'reserva_turnos/vbc/consultorio_detail.html'
+    context_object_name = 'consultorios'    
+
+
+class ConsultoriosCreateView(CreateView):
+    model = Consultorio
+    template_name = 'reserva_turnos/vbc/consultorio_create.html'
+    fields = ['nombre', 'disponible','descripcion']
+    success_url = reverse_lazy('vbc_consultorios_list')
+
+
+class ConsultoriosUpdateView(UpdateView):
+    model = Consultorio
+    template_name = 'reserva_turnos/vbc/consultorio_create.html'
+    fields = ['nombre', 'disponible','descripcion']
+    context_object_name = 'consultorios'
+    success_url = reverse_lazy('vbc_consultorios_list')      
+
+
+class ConsultoriosDeleteView(DeleteView):
+    model = Consultorio
+    template_name = 'reserva_turnos/vbc/consultorio_confirm_delete.html'
+    success_url = reverse_lazy('vbc_consultorios_list')              

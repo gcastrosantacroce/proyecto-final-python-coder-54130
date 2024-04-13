@@ -1,25 +1,25 @@
 {% extends 'reserva_turnos/base.html' %}
 
-{% block title %}{% if object %}Modificar Turno {{ object.nombre }}{% else %}Crear Turno{% endif %}{% endblock %}
+{% block title %}{% if object %}Modificar Consultorio {{ object.nombre }}{% else %}Registrar Consultorio{% endif %}{% endblock %}
 
 {% block content %}
 <section class="py-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="mb-4">{% if object %}Modificar Turno {{ object.nombre }}{% else %}Crear Turno{% endif %}</h2>
-            <a href="{% url 'vbc_turnos_list' %}" class="btn btn-primary">Volver</a>
+            <h2 class="mb-4">{% if object %}Modificar Consultorio {{ object.profesional }}{% else %}Registrar Consultorio{% endif %}</h2>
+            <a href="{% url 'vbc_consultorios_list' %}" class="btn btn-primary">Volver</a>
         </div>  
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        Datos del turno
+                        Datos del consultorio
                     </div>
                     <div class="card-body">
-                        <form method="POST"> 
+                        <form method="POST">  
                             {% csrf_token %}  <!-- CSRF Token added here -->
                             {{ form.as_p }} 
-                            <button type="buscar" class="btn btn-primary">{% if object %}Actualizar {{ object.nombre }}{% else %}Registrar Turno{% endif %}</button>                
+                            <button type="buscar" class="btn btn-primary">{% if object %}Actualizar Consultorio{{ object.profesional }}{% else %}Registrar Consultorio{% endif %}</button>                
                         </form>
                     </div>
                 </div>

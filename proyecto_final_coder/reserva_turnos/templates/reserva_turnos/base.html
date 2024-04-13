@@ -38,6 +38,26 @@
                         <a class="dropdown-item" href="{% url 'vbc_turnos_create' %}">Crear Turno</a>
                         <a class="dropdown-item" href="{% url 'buscar_turnos' %}">Buscar Turno por usuario</a>
                     </div>
+                <!-- Dropdown for Profesionales (VBC)-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSala" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profesionales (VBC)
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSala">
+                        <a class="dropdown-item" href="{% url 'vbc_profesionales_list' %}">Todos los Profesionales</a>
+                        <a class="dropdown-item" href="{% url 'vbc_profesionales_create' %}">Registrar Profesional</a>
+                        {% comment %} <a class="dropdown-item" href="{% url 'buscar_turnos' %}">Buscar profesional</a> {% endcomment %}
+                    </div>
+                <!-- Dropdown for Consultorios (VBC)-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSala" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Consultorios (VBC)
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSala">
+                        <a class="dropdown-item" href="{% url 'vbc_consultorios_list' %}">Todos los Consultorios</a>
+                        <a class="dropdown-item" href="{% url 'vbc_consultorios_create' %}">Registrar Consultorio</a>
+                        {% comment %} <a class="dropdown-item" href="{% url 'buscar_turnos' %}">Buscar Turno por usuario</a> {% endcomment %}
+                    </div>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "reserva_turnos-home" %}">Volver</a>
                 </li>

@@ -16,6 +16,16 @@ from .views import (
     TurnosUpdateView,
     TurnosCreateView,
     TurnosSearchView,
+    ProfesionalesListView,
+    ProfesionalesDetailView,
+    ProfesionalesCreateView,
+    ProfesionalesUpdateView,
+    ProfesionalesDeleteView,
+    ConsultoriosListView,
+    ConsultoriosDetailView,
+    ConsultoriosCreateView,
+    ConsultoriosUpdateView,
+    ConsultoriosDeleteView,
     )
 
 
@@ -35,5 +45,15 @@ urlpatterns = [
     path("vbc/turnos/<int:pk>/detail", TurnosDetailView.as_view(), name='vbc_turnos_detail'),
     path("vbc/turnos/<int:pk>/update/", TurnosUpdateView.as_view(), name='vbc_turnos_update'),
     path("vbc/turnos/<int:pk>/delete/", TurnosDeleteView.as_view(), name='vbc_turnos_delete'),
+    path("vbc/profesionales/list", ProfesionalesListView.as_view(), name="vbc_profesionales_list"),
+    path("vbc/profesionales/create/", ProfesionalesCreateView.as_view(), name='vbc_profesionales_create'),
+    path("vbc/profesionales/<int:pk>/detail", ProfesionalesDetailView.as_view(), name="vbc_profesionales_detail"),
+    path("vbc/profesionales/<int:pk>/update/", ProfesionalesUpdateView.as_view(), name='vbc_profesionales_update'),
+    path("vbc/profesionales/<int:pk>/delete/", ProfesionalesDeleteView.as_view(), name='vbc_profesionales_delete'),
+    path("vbc/consultorios/list", ConsultoriosListView.as_view(), name="vbc_consultorios_list"),
+    path("vbc/consultorios/create/", ConsultoriosCreateView.as_view(), name='vbc_consultorios_create'),
+    path("vbc/consultorios/<int:pk>/detail", ConsultoriosDetailView.as_view(), name="vbc_consultorios_detail"),
+    path("vbc/consultorios/<int:pk>/update/", ConsultoriosUpdateView.as_view(), name='vbc_consultorios_update'),
+    path("vbc/consultorios/<int:pk>/delete/", ConsultoriosDeleteView.as_view(), name='vbc_consultorios_delete'),
 
 ]

@@ -16,9 +16,9 @@
                         Datos del turno
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{% url "crear_turnos" %}">  <!-- Pablo notó esto !! -->
+                        <form method="POST" action="{% url "crear_turnos" %}">  
                             {% csrf_token %}  <!-- CSRF Token added here -->
-                            {{ create_form.as_p }}  <!------------------------------------- Pablo notó esto !! -->
+                            {{ create_form.as_p }}  
                             <button type="buscar" class="btn btn-primary">Registrar Turno</button>                
                         </form>
                     </div>

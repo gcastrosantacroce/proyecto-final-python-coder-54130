@@ -26,8 +26,8 @@
                         <p class="card-text">Detalle: {{ turno.descripcion }}</p>
                     </div>
                     <div class="card-footer text-muted">
-                        <a href="{% url 'turno-update' turno.id %}" class="btn btn-primary">Editar Reserva</a>
-                        <a href="{% url 'turno-delete' turno.id %}" class="btn btn-danger">Eliminar Reserva</a>
+                        <a href="{% url 'turno-update' turno.id %}" class="btn btn-primary">Editar Turno</a>
+                        <a href="{% url 'turno-delete' turno.id %}" class="btn btn-danger">Eliminar Turno</a>
                         <a href="{% url 'reserva_turnos-list' %}" class="btn btn-secondary">Volver al listado</a>
                     </div>
                 </div>

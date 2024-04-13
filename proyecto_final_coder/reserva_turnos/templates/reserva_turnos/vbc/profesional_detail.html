@@ -1,0 +1,29 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %}Detalle del profesional{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-4">Profesionales</h2>
+            <a href="{% url 'vbc_profesionales_list' %}" class="btn btn-primary">Volver</a>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    
+                    <div class="card-header">
+                        Detalle del profesional
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ profesionales.nombre }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Especialidad: {{ profesionales.especialidad }}</h6>
+                        <p class="card-text">Descipcion: {{ profesionales.descripcion}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

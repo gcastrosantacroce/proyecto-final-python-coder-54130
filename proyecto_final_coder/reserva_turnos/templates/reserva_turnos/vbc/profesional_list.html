@@ -1,0 +1,44 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %} Listado de Profesionales {% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-4">Profesionales</h2>
+            <a href="{% url 'vbc_profesionales_create' %}" class="btn btn-success">Registrar Profesional</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Especialidad</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if profesionales %}
+                {% for profesional in profesionales %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ profesional.nombre }}</td>
+                    <td>{{ profesional.especialidad }}</td>
+                    <td>
+                        <a href="{% url 'vbc_profesionales_detail' profesional.id %}" class="btn btn-primary btn-sm">Ver</a>
+                        <a href="{% url 'vbc_profesionales_update' profesional.id %}" class="btn btn-success btn-sm">Editar</a>
+                        <a href="{% url 'vbc_profesionales_delete' profesional.id %}" class="btn btn-danger btn-sm">Eliminar</a> 
+                    </td> 
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="7">No hay profesionales disponibles.</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}
