@@ -38,6 +38,17 @@
                         <a class="dropdown-item" href="{% url 'vbc_turnos_create' %}">Crear Turno</a>
                         <a class="dropdown-item" href="{% url 'buscar_turnos' %}">Buscar Turno por usuario</a>
                     </div>
+                <!-- Dropdown for Turnos -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkReserva" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Profesionales
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkReserva">
+                        <a class="dropdown-item" href="{% url 'profesionales-list' %}">Todos los Profesionales</a>
+                        <a class="dropdown-item" href="{% url 'crear_profesional' %}">Registrar Profesional</a>
+                        <a class="dropdown-item" href="{% url 'buscar_profesional' %}">Buscar profesional</a> 
+                    </div>
+                </li>
                 <!-- Dropdown for Profesionales (VBC)-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSala" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,7 +57,17 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSala">
                         <a class="dropdown-item" href="{% url 'vbc_profesionales_list' %}">Todos los Profesionales</a>
                         <a class="dropdown-item" href="{% url 'vbc_profesionales_create' %}">Registrar Profesional</a>
-                        {% comment %} <a class="dropdown-item" href="{% url 'buscar_turnos' %}">Buscar profesional</a> {% endcomment %}
+                        <a class="dropdown-item" href="{% url 'buscar_profesional' %}">Buscar profesional</a>
+                    </div>
+                <!-- Dropdown for Consultorios-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSala" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Consultorios
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSala">
+                        <a class="dropdown-item" href="{% url 'consultorios-list' %}">Todos los Consultorios</a>
+                        <a class="dropdown-item" href="{% url 'crear_consultorio' %}">Registrar Consultorio</a>
+                        {% comment %} <a class="dropdown-item" href="{% url 'buscar_turnos' %}">Buscar Turno por usuario</a> {% endcomment %}
                     </div>
                 <!-- Dropdown for Consultorios (VBC)-->
                 <li class="nav-item dropdown">

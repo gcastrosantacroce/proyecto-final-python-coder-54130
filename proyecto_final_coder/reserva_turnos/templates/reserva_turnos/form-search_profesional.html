@@ -1,0 +1,30 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %}Buscar Profesional{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-4">Buscar profesional por especialidad</h2>
+            <a href="{% url 'profesionales-list' %}" class="btn btn-primary">Volver</a>
+        </div>  
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Filtros de búsqueda
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{% url "buscar_profesional" %}">  
+                            {% csrf_token %}  <!-- CSRF Token added here -->
+                            {{ search_profesional_form.as_p }}  
+                            <button type="buscar" class="btn btn-primary">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

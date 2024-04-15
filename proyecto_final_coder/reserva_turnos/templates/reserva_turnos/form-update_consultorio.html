@@ -1,0 +1,31 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %}Modificar Consultorio{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-4">Modificar consultorio</h2>
+            <a href="{% url 'consultorios-list' %}" class="btn btn-primary">Volver</a>
+        </div>  
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Datos del consultorio
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'consultorio-update' consultorio.id %}">  
+                            {% csrf_token %}  <!-- CSRF Token added here -->
+                            {{ update_consultorio_form.as_p }}  
+                            <button type="buscar" class="btn btn-primary">Actualizar</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -9,6 +9,17 @@ from .views import (
     create_with_form_view,
     delete_view,
     update_view,
+    create_profesional_with_form_view,
+    list_profesional_view,
+    detail_profesional_view,
+    delete_profesional_view,
+    update_profesional_view,
+    create_consultorio_with_form_view,
+    list_consultorio_view,
+    detail_consultorio_view,
+    delete_consultorio_view,
+    update_consultorio_view,
+    search_profesional_with_form_view,
     # VBC
     TurnosListView,
     TurnosDetailView,
@@ -29,8 +40,9 @@ from .views import (
     )
 
 
-urlpatterns = [
+urlpatterns = [ 
     path("", home_view, name="reserva_turnos-home"),
+    #TURNOS 
     path("list/", list_view, name="reserva_turnos-list"),
     path("detail/<turno_id>", detail_view, name = "turno-detail"),
     path("buscar/<nombre_de_usuario>", search_view),
@@ -38,6 +50,21 @@ urlpatterns = [
     path("crear-con-formulario/", create_with_form_view, name="crear_turnos"),
     path("delete/<turno_id>", delete_view, name="turno-delete"),
     path("update/<turno_id>", update_view, name="turno-update"),
+    #PROFESIONALES 
+    path("crear-profesional-con-formulario/", create_profesional_with_form_view, name="crear_profesional"),
+    path("profesionales-list/", list_profesional_view, name="profesionales-list"),
+    path("profesional-detail/<profesional_id>", detail_profesional_view, name = "profesional-detail"),
+    path("profesional-delete/<profesional_id>", delete_profesional_view, name="profesional-delete"),
+    path("profesional-update/<profesional_id>", update_profesional_view, name="profesional-update"),
+    path("buscar-profesional-con-formulario/", search_profesional_with_form_view, name="buscar_profesional"),
+    #CONSULTORIOS
+    path("crear-consultorio-con-formulario/", create_consultorio_with_form_view, name="crear_consultorio"),
+    path("consultorios-list/", list_consultorio_view, name="consultorios-list"),
+    path("consultorio-detail/<consultorio_id>", detail_consultorio_view, name = "consultorio-detail"),
+    path("consultorio-delete/<consultorio_id>", delete_consultorio_view, name="consultorio-delete"),
+    path("consultorio-update/<consultorio_id>", update_consultorio_view, name="consultorio-update"), 
+
+
     #Vistas basadas en clases "VBC"
     path("vbc/turnos/list", TurnosListView.as_view(), name="vbc_turnos_list"),
     path("vbc/turnos/create/", TurnosCreateView.as_view(), name='vbc_turnos_create'),
@@ -55,5 +82,4 @@ urlpatterns = [
     path("vbc/consultorios/<int:pk>/detail", ConsultoriosDetailView.as_view(), name="vbc_consultorios_detail"),
     path("vbc/consultorios/<int:pk>/update/", ConsultoriosUpdateView.as_view(), name='vbc_consultorios_update'),
     path("vbc/consultorios/<int:pk>/delete/", ConsultoriosDeleteView.as_view(), name='vbc_consultorios_delete'),
-
 ]

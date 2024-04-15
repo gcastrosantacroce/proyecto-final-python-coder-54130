@@ -1,0 +1,30 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %}Crear Profesional{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-4">Crear profesional</h2>
+            <a href="{% url 'profesionales-list' %}" class="btn btn-primary">Volver</a>
+        </div>  
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        Datos del turno
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{% url "crear_profesional" %}">  
+                            {% csrf_token %}  <!-- CSRF Token added here -->
+                            {{ create_profesional_form.as_p }}  
+                            <button type="buscar" class="btn btn-primary">Registrar Profesional</button>                
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

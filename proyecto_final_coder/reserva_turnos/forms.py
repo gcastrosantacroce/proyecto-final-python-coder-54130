@@ -5,6 +5,11 @@ from .models import Consultorio, Profesional, Turnos
 class TurnoSearchForm(forms.Form):
     nombre_de_usuario = forms.CharField(max_length=50, required=True, label="Ingresar nombre de usuario")
 
+
+class ProfesionalSearchForm(forms.Form):
+    especialidad = forms.CharField(max_length=50, required=True, label="Ingresar la especialidad requerida")
+
+
 class TurnoCreateForm(forms.ModelForm):
     class Meta:
         model = Turnos
@@ -27,3 +32,37 @@ class TurnoCreateForm(forms.ModelForm):
             'descripcion': 'Detalle',
         }
 
+
+class ProfesionalCreateForm(forms.ModelForm):
+    class Meta:
+        model = Profesional
+        fields = ['nombre', 
+                  'especialidad', 
+                  'descripcion']
+        widgets = {
+            'nombre': forms.Textarea(attrs={'rows': 1,'placeholder': 'Nombre de profesional'}),
+            'especialidad' : forms.Textarea(attrs={'rows': 1,'placeholder': 'Especialidad'}),
+            'descripcion' : forms.Textarea(attrs={'rows': 1,'placeholder': 'Descripcion'}),
+        }
+        labels = {
+            'nombre': 'Nombre',
+            'especialidad': 'Especialidad',
+            'descripcion': 'Descripcion',
+        }
+
+
+class ConsultorioCreateForm(forms.ModelForm):
+    class Meta:
+        model = Consultorio
+        fields = ['nombre', 
+                  'disponible', 
+                  'descripcion']
+        widgets = {
+            'nombre': forms.Textarea(attrs={'rows': 1,'placeholder': 'Numero de consultorio'}),
+            'descripcion' : forms.Textarea(attrs={'rows': 1,'placeholder': 'Descripcion'}),
+        }
+        labels = {
+            'nombre': 'Numero',
+            'disponible': 'Disponible',
+            'descripcion': 'Descripcion',
+        }
