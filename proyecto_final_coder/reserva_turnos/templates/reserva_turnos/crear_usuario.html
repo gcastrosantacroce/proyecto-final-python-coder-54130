@@ -1,0 +1,24 @@
+{% extends 'reserva_turnos/base.html' %}
+
+{% block title %}Registro de Usuario{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header">
+                    Crear Usuario
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'crear-usuario' %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">Crear Usuario</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

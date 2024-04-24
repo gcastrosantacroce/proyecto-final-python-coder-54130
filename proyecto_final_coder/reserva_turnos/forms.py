@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import User
 from .models import Consultorio, Profesional, Turnos
 
 
@@ -13,7 +14,7 @@ class ProfesionalSearchForm(forms.Form):
 class TurnoCreateForm(forms.ModelForm):
     class Meta:
         model = Turnos
-        fields = ['nombre_de_usuario', 
+        fields = ['nombre_de_usuario',
                   'consultorio', 
                   'profesional', 
                   'fecha',
@@ -66,3 +67,9 @@ class ConsultorioCreateForm(forms.ModelForm):
             'disponible': 'Disponible',
             'descripcion': 'Descripcion',
         }
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email']

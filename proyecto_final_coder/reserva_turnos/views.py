@@ -1,79 +1,61 @@
 from django.shortcuts import render,redirect
-from .forms import TurnoSearchForm, TurnoCreateForm, ProfesionalCreateForm, ConsultorioCreateForm, ProfesionalSearchForm
+from .forms import TurnoCreateForm, TurnoSearchForm, ProfesionalCreateForm, ProfesionalSearchForm, ConsultorioCreateForm, UserEditForm
 from .models import Turnos, Profesional, Consultorio
 
+from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import User
+
+# -----------------------------------------------------------------------------
+#USER
+# -----------------------------------------------------------------------------
+
+def user_login_view(request):
+    if request.method == "GET":
+        form = AuthenticationForm()
+    elif request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.user_cache
+            if user is not None:
+                login(request, user)
+                return redirect('reserva_turnos-home')
+
+    return render(request, 'reserva_turnos/login.html', {'form': form})
+
+def user_logout_view(request):
+    logout(request)
+    return redirect("login")
+
+def user_creation_view(request):
+    if request.method == "GET":
+        form = UserCreationForm()
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("reserva_turnos-home")
+
+    return render(request, "reserva_turnos/crear_usuario.html", {"form": form})
+
+@login_required
 def home_view(request):
     return render(request, "reserva_turnos/home.html")
 
+# -----------------------------------------------------------------------------
+#TURNOS
+# -----------------------------------------------------------------------------
 
+@login_required
 def list_view(request):
     turnos = Turnos.objects.all()
     contexto_dict = {"todos_los_turnos": turnos}
     return render(request, "reserva_turnos/list.html", contexto_dict)
 
-
-def list_profesional_view(request):
-    profesionales = Profesional.objects.all()
-    contexto_dict = {"todos_los_profesionales": profesionales}
-    return render(request, "reserva_turnos/list_profesional.html", contexto_dict)
-
-
-def list_consultorio_view(request):
-    consultorios = Consultorio.objects.all()
-    contexto_dict = {"todos_los_consultorios": consultorios}
-    return render(request, "reserva_turnos/list_consultorio.html", contexto_dict)
-
-
-def detail_view(request, turno_id):
-    turno = Turnos.objects.get(id=turno_id)
-    contexto_dict = {"turno": turno}
-    return render(request, "reserva_turnos/detail.html", contexto_dict)
-
-
-def detail_profesional_view(request, profesional_id):
-    profesional = Profesional.objects.get(id=profesional_id)
-    contexto_dict = {"profesional": profesional}
-    return render(request, "reserva_turnos/detail_profesional.html", contexto_dict)
-
-
-def detail_consultorio_view(request, consultorio_id):
-    consultorio = Consultorio.objects.get(id=consultorio_id)
-    contexto_dict = {"consultorio": consultorio}
-    return render(request, "reserva_turnos/detail_consultorio.html", contexto_dict)
-
-
-def search_view(request, nombre_de_usuario):
-    turnos_del_usuario = Turnos.objects.filter(nombre_de_usuario=nombre_de_usuario).all()
-    contexto_dict = {"turnos": turnos_del_usuario}
-    return render(request, "reserva_turnos/list.html", contexto_dict)
-
-
-def search_with_form_view(request):
-    if request.method == "GET":
-        form = TurnoSearchForm()
-        return render(request, "reserva_turnos/form-search.html", context={"search_form":form})
-    elif request.method == "POST":
-        form = TurnoSearchForm(request.POST)
-        if form.is_valid():
-            nombre_de_usuario = form.cleaned_data['nombre_de_usuario']
-        turnos_del_usuario = Turnos.objects.filter(nombre_de_usuario=nombre_de_usuario).all()
-        contexto_dict = {"todos_los_turnos": turnos_del_usuario}
-        return render(request, "reserva_turnos/list.html", contexto_dict)
-
-
-def search_profesional_with_form_view(request):
-    if request.method == "GET":
-        form = ProfesionalSearchForm()
-        return render(request, "reserva_turnos/form-search_profesional.html", context={"search_profesional_form":form})
-    elif request.method == "POST":
-        form = ProfesionalSearchForm(request.POST)
-        if form.is_valid():
-            especialidad = form.cleaned_data['especialidad']
-        profesionales = Profesional.objects.filter(especialidad=especialidad).all()
-        contexto_dict = {"todos_los_profesionales": profesionales}
-        return render(request, "reserva_turnos/list_profesional.html", contexto_dict)            
-    
-
+@login_required
 def create_with_form_view(request):
     if request.method == "GET":
         contexto = {"create_form": TurnoCreateForm()}
@@ -98,61 +80,34 @@ def create_with_form_view(request):
 
         # turnos_del_usuario = Turnos.objects.filter(nombre_de_usuario=nombre_de_usuario).all()
         # contexto_dict = {"todos_los_turnos": turnos_del_usuario}
-        # return render(request, "reserva_turnos/list.html", contexto_dict)    
+        # return render(request, "reserva_turnos/list.html", contexto_dict)   
 
+@login_required
+def search_view(request, nombre_de_usuario):
+    turnos_del_usuario = Turnos.objects.filter(nombre_de_usuario=nombre_de_usuario).all()
+    contexto_dict = {"turnos": turnos_del_usuario}
+    return render(request, "reserva_turnos/list.html", contexto_dict)
 
-def create_profesional_with_form_view(request):
+@login_required
+def search_with_form_view(request):
     if request.method == "GET":
-        contexto = {"create_profesional_form": ProfesionalCreateForm()}
-        return render(request, "reserva_turnos/form-create_profesional.html", contexto)
+        form = TurnoSearchForm()
+        return render(request, "reserva_turnos/form-search.html", context={"search_form":form})
     elif request.method == "POST":
-        form = ProfesionalCreateForm(request.POST)
+        form = TurnoSearchForm(request.POST)
         if form.is_valid():
-            nombre = form.cleaned_data['nombre']
-            especialidad = form.cleaned_data['especialidad']
-            descripcion = form.cleaned_data['descripcion']
-            nuevo_profesional = Profesional(nombre=nombre,
-                                 especialidad=especialidad,
-                                 descripcion=descripcion)
-            nuevo_profesional.save()
-            return detail_profesional_view(request, nuevo_profesional.id)
+            nombre_de_usuario = form.cleaned_data['nombre_de_usuario']
+        turnos_del_usuario = Turnos.objects.filter(nombre_de_usuario=nombre_de_usuario).all()
+        contexto_dict = {"todos_los_turnos": turnos_del_usuario}
+        return render(request, "reserva_turnos/list.html", contexto_dict)
 
+@login_required
+def detail_view(request, turno_id):
+    turno = Turnos.objects.get(id=turno_id)
+    contexto_dict = {"turno": turno}
+    return render(request, "reserva_turnos/detail.html", contexto_dict)
 
-def create_consultorio_with_form_view(request):
-    if request.method == "GET":
-        contexto = {"create_consultorio_form": ConsultorioCreateForm()}
-        return render(request, "reserva_turnos/form-create_consultorio.html", contexto)
-    elif request.method == "POST":
-        form = ConsultorioCreateForm(request.POST)
-        if form.is_valid():
-            nombre = form.cleaned_data['nombre']
-            disponible = form.cleaned_data['disponible']
-            descripcion = form.cleaned_data['descripcion']
-            nuevo_consultorio = Consultorio(nombre=nombre,
-                                 disponible=disponible,
-                                 descripcion=descripcion)
-            nuevo_consultorio.save()
-            return detail_consultorio_view(request, nuevo_consultorio.id)
-
-
-def delete_view(request, turno_id):
-    turno_a_borrar = Turnos.objects.filter(id=turno_id).first()
-    turno_a_borrar.delete()
-    return redirect("reserva_turnos-list")
-
-
-def delete_profesional_view(request, profesional_id):
-    profesional_a_borrar = Profesional.objects.filter(id=profesional_id).first()
-    profesional_a_borrar.delete()
-    return redirect("profesionales-list")
-
-
-def delete_consultorio_view(request, consultorio_id):
-    consultorio_a_borrar = Consultorio.objects.filter(id=consultorio_id).first()
-    consultorio_a_borrar.delete()
-    return redirect("consultorios-list")
-
-
+@login_required
 def update_view(request, turno_id):
     turno_a_editar = Turnos.objects.filter(id=turno_id).first()
     if request.method == "GET":
@@ -188,7 +143,59 @@ def update_view(request, turno_id):
             turno_a_editar.save()
             return redirect("turno-detail", turno_a_editar.id)
 
+@login_required
+def delete_view(request, turno_id):
+    turno_a_borrar = Turnos.objects.filter(id=turno_id).first()
+    turno_a_borrar.delete()
+    return redirect("reserva_turnos-list")
 
+# -----------------------------------------------------------------------------
+#PROFESIONALES
+# -----------------------------------------------------------------------------
+
+@login_required
+def list_profesional_view(request):
+    profesionales = Profesional.objects.all()
+    contexto_dict = {"todos_los_profesionales": profesionales}
+    return render(request, "reserva_turnos/list_profesional.html", contexto_dict)
+
+@login_required
+def create_profesional_with_form_view(request):
+    if request.method == "GET":
+        contexto = {"create_profesional_form": ProfesionalCreateForm()}
+        return render(request, "reserva_turnos/form-create_profesional.html", contexto)
+    elif request.method == "POST":
+        form = ProfesionalCreateForm(request.POST)
+        if form.is_valid():
+            nombre = form.cleaned_data['nombre']
+            especialidad = form.cleaned_data['especialidad']
+            descripcion = form.cleaned_data['descripcion']
+            nuevo_profesional = Profesional(nombre=nombre,
+                                 especialidad=especialidad,
+                                 descripcion=descripcion)
+            nuevo_profesional.save()
+            return detail_profesional_view(request, nuevo_profesional.id)
+
+@login_required
+def search_profesional_with_form_view(request):
+    if request.method == "GET":
+        form = ProfesionalSearchForm()
+        return render(request, "reserva_turnos/form-search_profesional.html", context={"search_profesional_form":form})
+    elif request.method == "POST":
+        form = ProfesionalSearchForm(request.POST)
+        if form.is_valid():
+            especialidad = form.cleaned_data['especialidad']
+        profesionales = Profesional.objects.filter(especialidad=especialidad).all()
+        contexto_dict = {"todos_los_profesionales": profesionales}
+        return render(request, "reserva_turnos/list_profesional.html", contexto_dict)            
+    
+@login_required
+def detail_profesional_view(request, profesional_id):
+    profesional = Profesional.objects.get(id=profesional_id)
+    contexto_dict = {"profesional": profesional}
+    return render(request, "reserva_turnos/detail_profesional.html", contexto_dict)
+
+@login_required
 def update_profesional_view(request, profesional_id):
     profesional_a_editar = Profesional.objects.filter(id=profesional_id).first()
     if request.method == "GET":
@@ -214,8 +221,49 @@ def update_profesional_view(request, profesional_id):
             profesional_a_editar.descripcion = descripcion
             profesional_a_editar.save()
             return redirect("profesional-detail", profesional_a_editar.id)
-        
 
+@login_required
+def delete_profesional_view(request, profesional_id):
+    profesional_a_borrar = Profesional.objects.filter(id=profesional_id).first()
+    profesional_a_borrar.delete()
+    return redirect("profesionales-list")
+
+
+
+# -----------------------------------------------------------------------------
+#CONSULTORIOS
+# -----------------------------------------------------------------------------
+
+@login_required
+def list_consultorio_view(request):
+    consultorios = Consultorio.objects.all()
+    contexto_dict = {"todos_los_consultorios": consultorios}
+    return render(request, "reserva_turnos/list_consultorio.html", contexto_dict)
+
+@login_required
+def create_consultorio_with_form_view(request):
+    if request.method == "GET":
+        contexto = {"create_consultorio_form": ConsultorioCreateForm()}
+        return render(request, "reserva_turnos/form-create_consultorio.html", contexto)
+    elif request.method == "POST":
+        form = ConsultorioCreateForm(request.POST)
+        if form.is_valid():
+            nombre = form.cleaned_data['nombre']
+            disponible = form.cleaned_data['disponible']
+            descripcion = form.cleaned_data['descripcion']
+            nuevo_consultorio = Consultorio(nombre=nombre,
+                                 disponible=disponible,
+                                 descripcion=descripcion)
+            nuevo_consultorio.save()
+            return detail_consultorio_view(request, nuevo_consultorio.id)
+
+@login_required
+def detail_consultorio_view(request, consultorio_id):
+    consultorio = Consultorio.objects.get(id=consultorio_id)
+    contexto_dict = {"consultorio": consultorio}
+    return render(request, "reserva_turnos/detail_consultorio.html", contexto_dict)
+
+@login_required
 def update_consultorio_view(request, consultorio_id):
     consultorio_a_editar = Consultorio.objects.filter(id=consultorio_id).first()
     if request.method == "GET":
@@ -242,32 +290,51 @@ def update_consultorio_view(request, consultorio_id):
             consultorio_a_editar.save()
             return redirect("consultorio-detail", consultorio_a_editar.id)        
 
+@login_required
+def delete_consultorio_view(request, consultorio_id):
+    consultorio_a_borrar = Consultorio.objects.filter(id=consultorio_id).first()
+    consultorio_a_borrar.delete()
+    return redirect("consultorios-list")
+
+
 # VISTAS BASADAS EN CLASES "VBC"
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 
+#USER
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = UserEditForm
+    template_name = 'reserva_turnos/user_edit.html'
+    success_url = reverse_lazy('reserva_turnos-home')
+
+    def get_object(self):
+        return self.request.user
+
 #TURNOS
-class TurnosListView(ListView):
+
+class TurnosListView(LoginRequiredMixin,ListView):
     model = Turnos
     template_name = 'reserva_turnos/vbc/turnos_list.html'
     context_object_name = 'turnos'
 
 
-class TurnosDetailView(DetailView):
+class TurnosDetailView(LoginRequiredMixin,DetailView):
     model = Turnos
     template_name = 'reserva_turnos/vbc/turnos_detail.html'
     context_object_name = 'turnos'
 
 
-class TurnosCreateView(CreateView):
+class TurnosCreateView(LoginRequiredMixin,CreateView):
     model = Turnos
     template_name = 'reserva_turnos/vbc/turnos_create.html'
     fields = ['nombre_de_usuario', 'consultorio', 'profesional', 'fecha', 'hora_inicio', 'descripcion']
     success_url = reverse_lazy('vbc_turnos_list')
 
 
-class TurnosUpdateView(UpdateView):
+class TurnosUpdateView(LoginRequiredMixin,UpdateView):
     model = Turnos
     template_name = 'reserva_turnos/vbc/turnos_create.html'
     fields = ['nombre_de_usuario', 'consultorio', 'profesional', 'fecha', 'hora_inicio', 'descripcion']
@@ -275,36 +342,37 @@ class TurnosUpdateView(UpdateView):
     success_url = reverse_lazy('vbc_turnos_list')
 
 
-class TurnosDeleteView(DeleteView):
+class TurnosDeleteView(LoginRequiredMixin,DeleteView):
     model = Turnos
     template_name = 'reserva_turnos/vbc/turnos_confirm_delete.html'
     success_url = reverse_lazy('vbc_turnos_list')
 
 
-class TurnosSearchView(FormView):
+class TurnosSearchView(LoginRequiredMixin,FormView):
     pass
 
 #PROFESIONALES
-class ProfesionalesListView(ListView):
+
+class ProfesionalesListView(LoginRequiredMixin,ListView):
     model = Profesional
     template_name = 'reserva_turnos/vbc/profesional_list.html'
     context_object_name = 'profesionales'
 
 
-class ProfesionalesDetailView(DetailView):
+class ProfesionalesDetailView(LoginRequiredMixin,DetailView):
     model = Profesional
     template_name = 'reserva_turnos/vbc/profesional_detail.html'
     context_object_name = 'profesionales'  
 
 
-class ProfesionalesCreateView(CreateView):
+class ProfesionalesCreateView(LoginRequiredMixin,CreateView):
     model = Profesional
     template_name = 'reserva_turnos/vbc/profesional_create.html'
     fields = ['nombre', 'especialidad','descripcion']
     success_url = reverse_lazy('vbc_profesionales_list')
 
 
-class ProfesionalesUpdateView(UpdateView):
+class ProfesionalesUpdateView(LoginRequiredMixin,UpdateView):
     model = Profesional
     template_name = 'reserva_turnos/vbc/profesional_create.html'
     fields = ['nombre', 'especialidad','descripcion']
@@ -312,32 +380,33 @@ class ProfesionalesUpdateView(UpdateView):
     success_url = reverse_lazy('vbc_profesionales_list')          
 
 
-class ProfesionalesDeleteView(DeleteView):
+class ProfesionalesDeleteView(LoginRequiredMixin,DeleteView):
     model = Profesional
     template_name = 'reserva_turnos/vbc/profesional_confirm_delete.html'
     success_url = reverse_lazy('vbc_profesionales_list')      
 
 #CONSULTORIOS
-class ConsultoriosListView(ListView):
+
+class ConsultoriosListView(LoginRequiredMixin,ListView):
     model = Consultorio
     template_name = 'reserva_turnos/vbc/consultorio_list.html'
     context_object_name = 'consultorios'
 
 
-class ConsultoriosDetailView(DetailView):
+class ConsultoriosDetailView(LoginRequiredMixin,DetailView):
     model = Consultorio
     template_name = 'reserva_turnos/vbc/consultorio_detail.html'
     context_object_name = 'consultorios'    
 
 
-class ConsultoriosCreateView(CreateView):
+class ConsultoriosCreateView(LoginRequiredMixin,CreateView):
     model = Consultorio
     template_name = 'reserva_turnos/vbc/consultorio_create.html'
     fields = ['nombre', 'disponible','descripcion']
     success_url = reverse_lazy('vbc_consultorios_list')
 
 
-class ConsultoriosUpdateView(UpdateView):
+class ConsultoriosUpdateView(LoginRequiredMixin,UpdateView):
     model = Consultorio
     template_name = 'reserva_turnos/vbc/consultorio_create.html'
     fields = ['nombre', 'disponible','descripcion']
@@ -345,7 +414,7 @@ class ConsultoriosUpdateView(UpdateView):
     success_url = reverse_lazy('vbc_consultorios_list')      
 
 
-class ConsultoriosDeleteView(DeleteView):
+class ConsultoriosDeleteView(LoginRequiredMixin,DeleteView):
     model = Consultorio
     template_name = 'reserva_turnos/vbc/consultorio_confirm_delete.html'
     success_url = reverse_lazy('vbc_consultorios_list')              

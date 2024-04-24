@@ -1,7 +1,10 @@
 from django.urls import path
 
 from .views import (
-    home_view, 
+    home_view,
+    user_creation_view,
+    user_login_view,
+    user_logout_view,
     list_view, 
     detail_view, 
     search_view, 
@@ -21,6 +24,7 @@ from .views import (
     update_consultorio_view,
     search_profesional_with_form_view,
     # VBC
+    UserUpdateView,
     TurnosListView,
     TurnosDetailView,
     TurnosDeleteView,
@@ -42,6 +46,9 @@ from .views import (
 
 urlpatterns = [ 
     path("", home_view, name="reserva_turnos-home"),
+    path('crear-usuario/', user_creation_view, name='crear-usuario'),
+    path('login/', user_login_view, name='login'),
+    path('logout/', user_logout_view, name='logout'),
     #TURNOS 
     path("list/", list_view, name="reserva_turnos-list"),
     path("detail/<turno_id>", detail_view, name = "turno-detail"),
@@ -66,6 +73,7 @@ urlpatterns = [
 
 
     #Vistas basadas en clases "VBC"
+    path('editar-perfil/', UserUpdateView.as_view(), name='editar-perfil'),
     path("vbc/turnos/list", TurnosListView.as_view(), name="vbc_turnos_list"),
     path("vbc/turnos/create/", TurnosCreateView.as_view(), name='vbc_turnos_create'),
     path("vbc/turnos/search/", TurnosSearchView.as_view(), name='vbc_turnos_search'),

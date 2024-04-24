@@ -16,15 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.http import HttpResponse
+from reserva_turnos.views import home_view
 
-def mi_func(xx):
-    return HttpResponse("<h1>Bienvenidos a Vanguardia Center, Centro medico especializado</h1>")
+# def mi_func(xx):
+#      return home_view(xx)
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", mi_func),
+    path("", home_view),
     path("reserva_turnos/", include("reserva_turnos.urls")) # conecto las URLS de `reserva_turnos` con las URLS generales
 ]
 
