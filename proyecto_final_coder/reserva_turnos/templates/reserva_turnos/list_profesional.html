@@ -14,6 +14,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nombre</th>
+                    <th scope="col">Disponible</th>
                     <th scope="col">Especialidad</th>
                     <th scope="col">Acciones</th>
                 </tr>
@@ -24,6 +25,7 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ profesionales.nombre }}</td>
+                    <td>{{ profesionales.disponible }}</td>
                     <td>{{ profesionales.especialidad }}</td>
                     <td>
                         <a href="{% url 'profesional-detail' profesionales.id %}" class="btn btn-primary btn-sm">Ver</a>

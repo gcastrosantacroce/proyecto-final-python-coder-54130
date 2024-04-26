@@ -93,6 +93,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'editar-perfil' %}">{{ user }}</a>
                 </li>
+                <li class="nav-item">
+                    {% if user.avatar.image %}
+                    <img src="{{ user.avatar.image.url }}" alt="Avatar" style="height: 40px; width: 40px; border-radius: 50%;">
+                    {% endif %}
+                    <li class="nav-item">
+                        <a href="{% url 'avatar_add' %}" class="nav-link">Add Avatar</a>
+                    </li> 
                 {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">Login</a>

@@ -1,6 +1,10 @@
+from typing import Any, Mapping
 from django import forms
 from django.contrib.auth.models import User
-from .models import Consultorio, Profesional, Turnos
+from django.core.files.base import File
+from django.db.models.base import Model
+from django.forms.utils import ErrorList
+from .models import Consultorio, Profesional, Turnos, Avatar
 
 
 class TurnoSearchForm(forms.Form):
@@ -8,14 +12,15 @@ class TurnoSearchForm(forms.Form):
 
 
 class ProfesionalSearchForm(forms.Form):
-    especialidad = forms.CharField(max_length=50, required=True, label="Ingresar la especialidad requerida")
+    especialidad = forms.ChoiceField(choices=Profesional.Especialidades.choices, label="Seleccione la especialidad requerida")
+    disponible = forms.BooleanField(required=False, label="Sólo profesionales disponibles")
 
 
 class TurnoCreateForm(forms.ModelForm):
+    nombre_de_usuario = forms.CharField(max_length=100)
     class Meta:
         model = Turnos
-        fields = ['nombre_de_usuario',
-                  'consultorio', 
+        fields = ['consultorio', 
                   'profesional', 
                   'fecha',
                   'hora_inicio', 
@@ -32,12 +37,21 @@ class TurnoCreateForm(forms.ModelForm):
             'hora_inicio' : 'Horario',
             'descripcion': 'Detalle',
         }
+    def __init__(self, *args, **kwargs):
+        super(TurnoCreateForm, self).__init__(*args, **kwargs)
+        self.fields = {k: self.fields[k] for k in ['nombre_de_usuario',
+                                                   'consultorio',
+                                                   'profesional',
+                                                   'fecha',
+                                                   'hora_inicio',
+                                                   'descripcion']} 
 
 
 class ProfesionalCreateForm(forms.ModelForm):
     class Meta:
         model = Profesional
-        fields = ['nombre', 
+        fields = ['nombre',
+                  'disponible',
                   'especialidad', 
                   'descripcion']
         widgets = {
@@ -47,6 +61,7 @@ class ProfesionalCreateForm(forms.ModelForm):
         }
         labels = {
             'nombre': 'Nombre',
+            'disponible': 'Disponible',
             'especialidad': 'Especialidad',
             'descripcion': 'Descripcion',
         }
@@ -73,3 +88,9 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
+
+
+class AvatarCreateForm(forms.ModelForm):
+    class Meta:
+        model = Avatar
+        fields = ['image']        

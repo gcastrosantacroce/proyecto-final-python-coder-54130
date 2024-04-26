@@ -2,6 +2,14 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+class Avatar(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='avatar')
+    image = models.ImageField(upload_to='avatars/')
+
+    def __str__(self):
+        return f"Avatar for {self.user.username}"
+
+
 class Consultorio(models.Model):
     nombre = models.CharField(max_length=100)
     disponible = models.BooleanField(default=True)

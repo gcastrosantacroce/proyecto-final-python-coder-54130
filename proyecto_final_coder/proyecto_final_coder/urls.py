@@ -15,11 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from reserva_turnos.views import home_view
-
-# def mi_func(xx):
-#      return home_view(xx)
 
 
 urlpatterns = [
@@ -28,4 +27,4 @@ urlpatterns = [
     path("reserva_turnos/", include("reserva_turnos.urls")) # conecto las URLS de `reserva_turnos` con las URLS generales
 ]
 
-#python manage.py runserver
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

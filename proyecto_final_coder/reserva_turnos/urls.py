@@ -1,54 +1,60 @@
 from django.urls import path
 
 from .views import (
+    # USER
     home_view,
     user_creation_view,
+    UserUpdateView,
     user_login_view,
     user_logout_view,
-    list_view, 
-    detail_view, 
-    search_view, 
+    avatar_view,
+    # TURNOS
+    list_view,
+    TurnosListView, 
+    detail_view,
+    TurnosDetailView, 
+    search_view,
     search_with_form_view,
+    TurnosSearchView, 
     create_with_form_view,
-    delete_view,
-    update_view,
-    create_profesional_with_form_view,
-    list_profesional_view,
-    detail_profesional_view,
-    delete_profesional_view,
-    update_profesional_view,
-    create_consultorio_with_form_view,
-    list_consultorio_view,
-    detail_consultorio_view,
-    delete_consultorio_view,
-    update_consultorio_view,
-    search_profesional_with_form_view,
-    # VBC
-    UserUpdateView,
-    TurnosListView,
-    TurnosDetailView,
-    TurnosDeleteView,
-    TurnosUpdateView,
     TurnosCreateView,
-    TurnosSearchView,
+    delete_view,
+    TurnosDeleteView,
+    update_view,
+    TurnosUpdateView,
+    # PROFESIONAL
+    list_profesional_view,
     ProfesionalesListView,
-    ProfesionalesDetailView,
+    create_profesional_with_form_view,
     ProfesionalesCreateView,
-    ProfesionalesUpdateView,
+    detail_profesional_view,
+    ProfesionalesDetailView,
+    delete_profesional_view,
     ProfesionalesDeleteView,
+    update_profesional_view,
+    ProfesionalesUpdateView,
+    # CONSULTORIOS
+    list_consultorio_view,
     ConsultoriosListView,
-    ConsultoriosDetailView,
+    create_consultorio_with_form_view,
     ConsultoriosCreateView,
-    ConsultoriosUpdateView,
+    search_profesional_with_form_view,
+    detail_consultorio_view,
+    ConsultoriosDetailView,
+    delete_consultorio_view,
     ConsultoriosDeleteView,
+    update_consultorio_view,
+    ConsultoriosUpdateView,
     )
 
 
-urlpatterns = [ 
+urlpatterns = [
+    #USER 
     path("", home_view, name="reserva_turnos-home"),
     path('crear-usuario/', user_creation_view, name='crear-usuario'),
     path('login/', user_login_view, name='login'),
     path('logout/', user_logout_view, name='logout'),
+    path('avatar/add/', avatar_view, name='avatar_add'),
     #TURNOS 
     path("list/", list_view, name="reserva_turnos-list"),
     path("detail/<turno_id>", detail_view, name = "turno-detail"),
@@ -73,18 +79,22 @@ urlpatterns = [
 
 
     #Vistas basadas en clases "VBC"
+    #USER 
     path('editar-perfil/', UserUpdateView.as_view(), name='editar-perfil'),
+    #TURNOS 
     path("vbc/turnos/list", TurnosListView.as_view(), name="vbc_turnos_list"),
     path("vbc/turnos/create/", TurnosCreateView.as_view(), name='vbc_turnos_create'),
     path("vbc/turnos/search/", TurnosSearchView.as_view(), name='vbc_turnos_search'),
     path("vbc/turnos/<int:pk>/detail", TurnosDetailView.as_view(), name='vbc_turnos_detail'),
     path("vbc/turnos/<int:pk>/update/", TurnosUpdateView.as_view(), name='vbc_turnos_update'),
     path("vbc/turnos/<int:pk>/delete/", TurnosDeleteView.as_view(), name='vbc_turnos_delete'),
+    #PROFESIONALES 
     path("vbc/profesionales/list", ProfesionalesListView.as_view(), name="vbc_profesionales_list"),
     path("vbc/profesionales/create/", ProfesionalesCreateView.as_view(), name='vbc_profesionales_create'),
     path("vbc/profesionales/<int:pk>/detail", ProfesionalesDetailView.as_view(), name="vbc_profesionales_detail"),
     path("vbc/profesionales/<int:pk>/update/", ProfesionalesUpdateView.as_view(), name='vbc_profesionales_update'),
     path("vbc/profesionales/<int:pk>/delete/", ProfesionalesDeleteView.as_view(), name='vbc_profesionales_delete'),
+    #CONSULTORIOS
     path("vbc/consultorios/list", ConsultoriosListView.as_view(), name="vbc_consultorios_list"),
     path("vbc/consultorios/create/", ConsultoriosCreateView.as_view(), name='vbc_consultorios_create'),
     path("vbc/consultorios/<int:pk>/detail", ConsultoriosDetailView.as_view(), name="vbc_consultorios_detail"),
