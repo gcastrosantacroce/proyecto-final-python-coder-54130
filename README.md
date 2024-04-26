@@ -1,38 +1,22 @@
 # PROYECTO FINAL CoderHouse Python 54310
 ### Alumno Castro Santacroce Gonzalo
 
-# Comandos
+# Walktrough
 
-1. Crear proyecto Django
-    ```bash
-    django-admin startproject <nombre del proyecto que quieran ustedes>
-    ```
-    ```bash
-    # Otras variantes del comando si falla:
-    python -m django startproject nombre_del_proyecto
-    # Y si usan python3 como comando:
-    python3 -m django startproject nombre_del_proyecto
-    ```
-2. Testear servidor
-    ```bash
-    python manage.py runserver
-    ```
-3. Crear una `application` dentro de mi proyecto:
-    ```bash
-    python manage.py startapp <nomre de su aplicacion>
-    ```
-4. Creamos un archivo que se llame urls.py en <nombre_del_proyecto>/<nombre_de_su_aplicacion>/urls.py. En mi caso sería: MeetingRooms/bookings/urls.py
+El proyecto consiste en una plataforma de un centro medico, a traves del cual se pueden registrar usuarios, solicitar turnos, registrar profesionales y consultorios.
 
-## Templates
+1. Acceder con el usuario admin, Mariano, Federico o Miguel.
 
-1. Crear un template y guardarlo en el lugar adecuado
-2. Utilizar la función `render`
+2. A traves de la pagina, se pueden crear turnos, ver en un listado todos los turnos y buscar los turnos por usuario.
 
-## Modelos
+3. Tambien se puede crear profesionales, ver un listado de los mismos y buscarlos por especialidad.
 
-Después de agregar o modificar un modelo en `models.py` tenemos que correr 2 comandos:
+4. De igual manera, tambien se pueden registrar consultorios, verlos y editarlos.
 
-1. `python manage.py makemigrations`
-2. `python manage.py migrate`
+5. En las vistas de listas de los 3 modelos, hay opciones de "ver"(detalle del turno,profesional y/o consultorio), "editar" y "eliminar" cada uno de los registros.
+
+6. Hay dos tipos de opciones desplegables, una hecha con Forms y otra hecha con VBC.
+
+7. En cuanto al usuario, puede editar sus datos, y agregar una imagen de perfil.
 
 
