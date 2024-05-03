@@ -8,6 +8,7 @@ from .views import (
     user_login_view,
     user_logout_view,
     avatar_view,
+    about_view,
     # TURNOS
     list_view,
     TurnosListView, 
@@ -55,6 +56,7 @@ urlpatterns = [
     path('login/', user_login_view, name='login'),
     path('logout/', user_logout_view, name='logout'),
     path('avatar/add/', avatar_view, name='avatar_add'),
+    path('about/', about_view, name='about'),
     #TURNOS 
     path("list/", list_view, name="reserva_turnos-list"),
     path("detail/<turno_id>", detail_view, name = "turno-detail"),

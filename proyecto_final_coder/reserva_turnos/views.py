@@ -68,6 +68,9 @@ def avatar_view(request):
 
     return render(request, "reserva_turnos/avatar_create.html", context=contexto)
 
+def about_view(request):
+    return render(request, "reserva_turnos/about.html")
+
 @login_required
 def home_view(request):
     return render(request, "reserva_turnos/home.html")
