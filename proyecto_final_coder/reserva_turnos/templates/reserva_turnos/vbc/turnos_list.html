@@ -17,8 +17,7 @@
                     <th scope="col">Profesional</th>
                     <th scope="col">Consultorio</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Hora de Inicio</th>
-                    <th scope="col">Hora de Fin</th>
+                    <th scope="col">Horario</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -32,7 +31,6 @@
                     <td>{{ turno.consultorio }}</td>
                     <td>{{ turno.fecha | date:"Y-m-d" }}</td>
                     <td>{{ turno.hora_inicio | date:"H:i" }}</td>
-                    <td>{{ turno.hora_fin | date:"H:i" }}</td>
                     <td>
                         <a href="{% url 'vbc_turnos_detail' turno.id %}" class="btn btn-primary btn-sm">Ver</a>
                         <a href="{% url 'vbc_turnos_update' turno.id %}" class="btn btn-success btn-sm">Editar</a>

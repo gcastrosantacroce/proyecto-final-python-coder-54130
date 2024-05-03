@@ -166,12 +166,14 @@ def update_view(request, turno_id):
         form = TurnoCreateForm(request.POST)
         if form.is_valid():
             nombre_de_usuario = form.cleaned_data['nombre_de_usuario']
+            if User.objects.filter(username=nombre_de_usuario).exists():
+                user = User.objects.get(username=nombre_de_usuario)
             consultorio = form.cleaned_data['consultorio']
             profesional = form.cleaned_data['profesional']
             fecha = form.cleaned_data['fecha']
             hora_inicio = form.cleaned_data['hora_inicio']
             descripcion = form.cleaned_data['descripcion']
-            turno_a_editar.nombre_de_usuario = nombre_de_usuario
+            turno_a_editar.nombre_de_usuario = user
             turno_a_editar.consultorio = consultorio
             turno_a_editar.profesional = profesional
             turno_a_editar.fecha = fecha
@@ -237,7 +239,6 @@ def search_profesional_with_form_view(request):
     
     else:
             return render(request,"reserva_turnos/form-search_profesional.html",context={"search_profesional_form":form})
-
     
 @login_required
 def detail_profesional_view(request, profesional_id):
